@@ -256,7 +256,7 @@ export interface GameState {
     /**
      * Battlesnake Object describing your Battlesnake.
      */
-    you: Battlesnake
+    you: Snake
 }
 
 export type Direction = 'up' | 'left' | 'down' | 'right'
