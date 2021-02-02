@@ -17,9 +17,9 @@ function handleIndex(request, response) {
     const battlesnakeInfo = {
         apiversion: "1",
         author: "",
-        color: "#888888",
-        head: "default",
-        tail: "default"
+        color: "#BADA55",
+        head: "dead",
+        tail: "fat-rattle"
     };
     response.status(200).json(battlesnakeInfo);
 }
@@ -136,6 +136,29 @@ function handleMove(request, response) {
                 }
                 else if (hazard.x == head.x + 1) {
                     narrowMoves = remove(narrowMoves, "right");
+                }
+            }
+        }
+    }
+    // Don't do head-to-head collisions
+    for (const snake of gameData.board.snakes) {
+        let dx = snake.head.x - head.x;
+        let dy = snake.head.y - head.y;
+        if (Math.abs(dx) + Math.abs(dy) == 2) {
+            if (snake.length < gameData.you.length) {
+            }
+            else {
+                if (dx > 0) {
+                    remove(narrowMoves, "right");
+                }
+                else if (dx < 0) {
+                    remove(narrowMoves, "left");
+                }
+                if (dy > 0) {
+                    remove(narrowMoves, "up");
+                }
+                else if (dy < 0) {
+                    remove(narrowMoves, "down");
                 }
             }
         }
