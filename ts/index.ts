@@ -29,7 +29,8 @@ function handleIndex(request: Request, response: Response<SnakeInfo>) {
 function handleStart(request: GameRequest, response: Response) {
     const gameData = request.body;
 
-    console.log("START");
+    console.log("Start of game " + gameData.game.id + "\n");
+
     response.status(200).send("ok");
 }
 
@@ -214,7 +215,7 @@ function handleMove(request: GameRequest, response: Response<Move>) {
     console.log(narrowMoves)
     const move = narrowMoves[Math.floor(Math.random() * narrowMoves.length)];
 
-    console.log("MOVE: " + move);
+    console.log("Moving " + move + "\n");
     response.status(200).send({
         move: move
     });
@@ -223,6 +224,7 @@ function handleMove(request: GameRequest, response: Response<Move>) {
 function handleEnd(request: GameRequest, response: Response) {
     const gameData = request.body;
 
-    console.log("END");
+    console.log("End of game " + gameData.game.id + "\n");
+
     response.status(200).send("ok");
 }

@@ -25,7 +25,7 @@ function handleIndex(request, response) {
 }
 function handleStart(request, response) {
     const gameData = request.body;
-    console.log("START");
+    console.log("Start of game " + gameData.game.id);
     response.status(200).send("ok");
 }
 function remove(directions, direction) {
@@ -206,14 +206,14 @@ function handleMove(request, response) {
     }
     console.log(narrowMoves);
     const move = narrowMoves[Math.floor(Math.random() * narrowMoves.length)];
-    console.log("MOVE: " + move);
+    console.log("Moving " + move + "\n");
     response.status(200).send({
         move: move
     });
 }
 function handleEnd(request, response) {
     const gameData = request.body;
-    console.log("END");
+    console.log("End of game " + gameData.game.id);
     response.status(200).send("ok");
 }
 //# sourceMappingURL=index.js.map
