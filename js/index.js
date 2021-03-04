@@ -45,7 +45,9 @@ function hazardBoard(gameData) {
         }
     }
     for (const snake of gameData.board.snakes) {
-        for (let i = 0; i < snake.length; i++) {
+        // If the snake has full health that means it just ate, so it will be longer next turn, so we have to rule out moving to the tail.
+        let len = snake.health == 100 || gameData.turn < 2 ? snake.length : snake.length - 1;
+        for (let i = 0; i < len; i++) {
             hazards[snake.body[i].y][snake.body[i].x] = true;
         }
     }
@@ -90,6 +92,7 @@ function region(hazards, location) {
 }
 function handleMove(request, response) {
     const gameData = request.body;
+    console.log("Turn: " + gameData.turn);
     const head = gameData.you.head;
     const possibleMoves = ["up", "down", "left", "right"];
     let narrowMoves = possibleMoves;
@@ -120,7 +123,9 @@ function handleMove(request, response) {
     }
     // don't run into any snakes
     for (const snake of gameData.board.snakes) {
-        for (let i = 0; i < snake.length; i++) {
+        // If the snake has full health that means it just ate, so it will be longer next turn, so we have to rule out moving to the tail.
+        let len = snake.health == 100 || gameData.turn < 2 ? snake.length : snake.length - 1;
+        for (let i = 0; i < len; i++) {
             let hazard = snake.body[i];
             if (hazard.x == head.x) {
                 if (hazard.y == head.y - 1) {
