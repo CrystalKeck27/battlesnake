@@ -107,19 +107,7 @@ function handleMove(request: GameRequest, response: Response<Move>) {
 
     const hazards = hazardBoard(gameData);
 
-    // don't go backwards
-    // if(head.x > gameData.you.body[1].x) {
-    //     narrowMoves = remove(narrowMoves, "left");
-    // } else if(head.x < gameData.you.body[1].x) {
-    //     narrowMoves = remove(narrowMoves, "right");
-    // } else if(head.y > gameData.you.body[1].y) {
-    //     narrowMoves = remove(narrowMoves, "down");
-    // } else {
-    //     narrowMoves = remove(narrowMoves, "up");
-    // }
-    // Now handled elsewhere
-
-    // don't run into wall
+    // Don't run into wall
     if(head.x <= 0) {
         narrowMoves = remove(narrowMoves, "left");
     }
@@ -133,9 +121,8 @@ function handleMove(request: GameRequest, response: Response<Move>) {
         narrowMoves = remove(narrowMoves, "up");
     }
 
-    // don't run into any snakes
+    // Don't run into any snakes
     for (const snake of gameData.board.snakes) {
-        // If the snake has full health that means it just ate, so it will be longer next turn, so we have to rule out moving to the tail.
         let len = snake.health == 100 || gameData.turn < 2 ? snake.length : snake.length - 1;
         for (let i = 0; i < len; i++) {
             let hazard = snake.body[i];
